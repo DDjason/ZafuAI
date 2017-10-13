@@ -10,6 +10,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
     buildTypes {
         release {
@@ -17,6 +22,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    //设置DataBinding状态为可用
+    dataBinding{
+        enabled = true
+    }
+
 }
 
 dependencies {
@@ -24,7 +35,52 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+
+
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+
+
+
+    // add library
+
+    //首页底部导航栏
+    compile 'com.ashokvarma.android:bottom-navigation-bar:2.0.2'
+
+    //网络框架 retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+    //图片加载框架 Glide
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //页面路由框架 Arouter
+    compile 'com.alibaba:arouter-api:1.2.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.2'
+
+    //代替 ListView GridView
+    compile 'com.android.support:recyclerview-v7:26.0.+'
+
+    //RxJava 响应式编程框架
+    compile 'io.reactivex.rxjava2:rxjava:2.0.0'
+    compile 'org.reactivestreams:reactive-streams:1.0.0'
+
+    //引入Module
+    compile project(':widget')
+
+}
+
+// 当版本与引入包的版本不一致时 gradle中将其强制转换成相同的版本
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.0'
+            }
+        }
+    }
 }

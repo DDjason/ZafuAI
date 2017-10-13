@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //导航栏
+    <string name="app_mine">我的</string>
+    <string name="app_share">分享</string>
+    <string name="app_near">附近</string>
+    <string name="app_news">资讯</string>
+</resources>

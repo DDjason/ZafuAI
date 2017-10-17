@@ -5,4 +5,5 @@
     <string name="app_share">分享</string>
     <string name="app_near">附近</string>
     <string name="app_news">资讯</string>
+    <string name="tweet_public">相机</string>
 </resources>

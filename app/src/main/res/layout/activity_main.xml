@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <FrameLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
@@ -24,11 +25,22 @@
             android:layout_height="@dimen/y1"
             android:background="@color/gray" />
 
-        <com.ashokvarma.bottomnavigation.BottomNavigationBar
-            android:id="@+id/tabs"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom" />
+            android:layout_height="@dimen/y110"
+            android:gravity="center"
+            android:text="24323"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.ashokvarma.bottomnavigation.BottomNavigationBar
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y110"
+                android:layout_gravity="bottom" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

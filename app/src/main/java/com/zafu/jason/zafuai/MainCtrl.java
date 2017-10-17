@@ -6,13 +6,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.amap.api.location.AMapLocation;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.zafu.jason.zafuai.commom.StartCallBack;
 import com.zafu.jason.zafuai.databinding.ActivityMainBinding;
 import com.zafu.jason.zafuai.module.home.ui.fragment.HomeMapFrag;
 import com.zafu.jason.zafuai.module.home.ui.fragment.HomeMineFrag;
 import com.zafu.jason.zafuai.module.home.ui.fragment.HomeNewsFrag;
 import com.zafu.jason.zafuai.module.home.ui.fragment.HomeShareFrag;
+import com.zafu.jason.zafuai.widget.PubActivity;
 
 /**
  * Author: Yangyd
@@ -20,11 +23,10 @@ import com.zafu.jason.zafuai.module.home.ui.fragment.HomeShareFrag;
  * Date: 2017/10/13$ 14:01$
  * <p/>
  */
-public class MainCtrl {
+public class MainCtrl implements StartCallBack {
     private ActivityMainBinding binding;
     private FragmentManager     fragmentManager;
     //Fragment 界面
-
 
     public MainCtrl(ActivityMainBinding binding, FragmentManager fragmentManager) {
         this.binding = binding;
@@ -112,13 +114,16 @@ public class MainCtrl {
      * @param position
      */
     private void barTabSelected(int position) {
-        Fragment fragment = getFragmentByPosition(position);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if (null != fragment){
+        Fragment fragment = getFragmentByPosition(position);
+
+        if (null != fragment) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.show(fragment);
+            transaction.commitAllowingStateLoss();
+        } else {
+            onCLickStart();
         }
-        transaction.commitAllowingStateLoss();
     }
 
     /**
@@ -127,13 +132,13 @@ public class MainCtrl {
      * @param position
      */
     private void barTabUnSelect(int position) {
-        Fragment fragment = getFragmentByPosition(position);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if (null != fragment){
+        Fragment fragment = getFragmentByPosition(position);
+        if (null != fragment) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.hide(fragment);
+            transaction.commitAllowingStateLoss();
         }
-        transaction.commitAllowingStateLoss();
     }
 
     /**
@@ -142,24 +147,28 @@ public class MainCtrl {
      * @param position
      */
     private void barTabReselected(int position) {
-        Fragment fragment = getFragmentByPosition(position);
 
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (null != fragment){
+        Fragment fragment = getFragmentByPosition(position);
+        if (null != fragment) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.show(fragment);
+            transaction.commitAllowingStateLoss();
+        } else {
+            onCLickStart();
         }
-        transaction.commitAllowingStateLoss();
     }
 
     /**
      * Tag为position
+     *
      * @param position
+     *
      * @return
      */
-    private Fragment getFragmentByPosition(int position){
-        String Tag_Frag = position+"Frag";
+    private Fragment getFragmentByPosition(int position) {
+        String   Tag_Frag = position + "Frag";
         Fragment fragment = fragmentManager.findFragmentByTag(Tag_Frag);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
         if (null == fragment) {
             switch (position) {
                 case 0:
@@ -169,7 +178,7 @@ public class MainCtrl {
                     fragment = new HomeMapFrag();
                     break;
                 case 2:
-                    fragment = new HomeNewsFrag();
+                    fragment = null;
                     break;
                 case 3:
                     fragment = new HomeShareFrag();
@@ -177,15 +186,46 @@ public class MainCtrl {
                 case 4:
                     fragment = new HomeMineFrag();
                     break;
+                default:
+                    break;
             }
-            if (null != fragment){
-                transaction.add(R.id.content,fragment,Tag_Frag);
+            if (null != fragment) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.add(R.id.content, fragment, Tag_Frag);
                 transaction.show(fragment);
                 transaction.commitAllowingStateLoss();
             }
         }
-        Log.i("getFragmentByPosition"+" "+position,fragment.getClass().getName());
+        if (fragment != null) {
+            Log.i("getFragmentByPosition" + " " + position, fragment.getClass().getName());
+        }
         return fragment;
+    }
+
+    public void onCLickStart() {
+        PubActivity.show(binding.getRoot().getContext());
+        //MyLocationUtil.initLocation(this);
+    }
+
+    /**
+     * 启动相机
+     * @param mapLocation
+     */
+    private void startCamera(AMapLocation mapLocation) {
+        Log.i("startCamera", "begin");
+        if (null != mapLocation) {
+            Log.i("startCamera", mapLocation.getAddress());
+        }
+
+    }
+
+    /**
+     * 获取位置信息回调
+     * @param aMapLocation
+     */
+    @Override
+    public void onStartCamera(AMapLocation aMapLocation) {
+        startCamera(aMapLocation);
     }
 }
 

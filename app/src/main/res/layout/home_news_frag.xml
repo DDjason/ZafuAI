@@ -3,16 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewCtrl"
+            type="com.zafu.jason.zafuai.module.home.viewCtrl.HomeNewsFragCtrl"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/convenientBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:canLoop="true"
+            />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:text="news"/>
     </LinearLayout>
 </layout>

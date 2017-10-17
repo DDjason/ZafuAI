@@ -68,6 +68,12 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.0.0'
     compile 'org.reactivestreams:reactive-streams:1.0.0'
 
+    // 轮播图控件
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+
+    // banner
+    compile 'com.youth.banner:banner:1.4.1'
+
     //引入Module
     compile project(':widget')
 

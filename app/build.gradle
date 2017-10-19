@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.zafu.jason.zafuai"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -59,6 +59,9 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     // banner
     compile 'com.youth.banner:banner:1.4.1'
+    //Lottie 动画库框架
+    compile 'com.airbnb.android:lottie:1.0.1'
+
     //引入Module
     compile project(':widget')
     compile files('libs/Amap_2DMap_V5.2.0_20170627.jar')

@@ -10,4 +10,8 @@ public class RouterURL {
     private static final String SCHEME = "/zafuai";
     /** 主页 */
     public static final  String MAIN   = SCHEME + "/main";
+
+    /** 图片分析页面 */
+    public static final  String IDENTITY   = SCHEME + "/identity";
+
 }

@@ -1,21 +1,37 @@
 package com.zafu.jason.zafuai;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.amap.api.location.AMapLocation;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.zafu.jason.zafuai.commom.StartCallBack;
+import com.zafu.jason.zafuai.commom.tool.AndroidUtil;
+import com.zafu.jason.zafuai.commom.tool.Constant;
+import com.zafu.jason.zafuai.commom.tool.FileTools;
 import com.zafu.jason.zafuai.databinding.ActivityMainBinding;
 import com.zafu.jason.zafuai.module.home.ui.fragment.HomeMapFrag;
 import com.zafu.jason.zafuai.module.home.ui.fragment.HomeMineFrag;
 import com.zafu.jason.zafuai.module.home.ui.fragment.HomeNewsFrag;
 import com.zafu.jason.zafuai.module.home.ui.fragment.HomeShareFrag;
-import com.zafu.jason.zafuai.widget.PubActivity;
+import com.zafu.jason.zafuai.router.RouterKeys;
+import com.zafu.jason.zafuai.router.RouterURL;
+
+import java.io.File;
 
 /**
  * Author: Yangyd
@@ -28,6 +44,7 @@ public class MainCtrl implements StartCallBack {
     private FragmentManager     fragmentManager;
     //Fragment 界面
 
+    private String mFilePath;
     public MainCtrl(ActivityMainBinding binding, FragmentManager fragmentManager) {
         this.binding = binding;
         this.fragmentManager = fragmentManager;
@@ -83,23 +100,38 @@ public class MainCtrl implements StartCallBack {
                 .addItem(new BottomNavigationItem(R.drawable.ic_user_select, R.string.app_mine)
                         .setInactiveIconResource(R.drawable.ic_user_unselect).setActiveColorResource(R.color.white))
                 .setTabSelectedListener(new BottomNavigationBar.SimpleOnTabSelectedListener() {
+
+                    //当前点击
+                    int positionNow = -2;
+                    int shouldRemovePosition = -1;
                     @Override
                     public void onTabSelected(int position) {
+                        positionNow = position;
                         super.onTabSelected(position);
-                        Log.i("TAG", "onTabSelected() called with position = [ " + position + " ]");
-
+                        Log.i("TAG", "onTabSelected() called with position = [ " + position + " ]" +" " + positionNow);
                         barTabSelected(position);
                     }
 
                     @Override
                     public void onTabUnselected(int position) {
                         super.onTabUnselected(position);
-                        barTabUnSelect(position);
+                        if (positionNow == 2){
+                            shouldRemovePosition = position;
+                            return ;
+                        }
+                        if (position == 2 && shouldRemovePosition != -1){
+                            barTabUnSelect(shouldRemovePosition);
+                            shouldRemovePosition = -1;
+                        }else {
+                            Log.i("TAG", "onTabUnselected() called with position = [ " + position + " ]");
+                            barTabUnSelect(position);
+                        }
                     }
 
                     @Override
                     public void onTabReselected(int position) {
                         super.onTabReselected(position);
+                        Log.i("TAG", "onTabUnselected() called with position = [ " + position + " ]");
                         barTabReselected(position);
                     }
                 })
@@ -118,6 +150,7 @@ public class MainCtrl implements StartCallBack {
         Fragment fragment = getFragmentByPosition(position);
 
         if (null != fragment) {
+            closeCamera();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.show(fragment);
             transaction.commitAllowingStateLoss();
@@ -154,6 +187,7 @@ public class MainCtrl implements StartCallBack {
             transaction.show(fragment);
             transaction.commitAllowingStateLoss();
         } else {
+            closeCamera();
             onCLickStart();
         }
     }
@@ -203,20 +237,80 @@ public class MainCtrl implements StartCallBack {
     }
 
     public void onCLickStart() {
-        PubActivity.show(binding.getRoot().getContext());
+        binding.btnPub.animate().rotation(135.0f)
+                .setDuration(180)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                    }
+                })
+                .start();
         //MyLocationUtil.initLocation(this);
+        new AlertDialog.Builder(binding.getRoot().getContext())
+                .setTitle("选择照片")
+                .setItems(new String[]{"拍照", "相册"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i){
+                            case 0:
+                                Log.i("AlertDialog","拍照");
+                                startCamera();
+                                break;
+                            case 1:
+                                Log.i("AlertDialog","相册");
+                                startAlbum();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        closeCamera();
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    public void closeCamera(){
+        binding.btnPub.animate()
+                .rotation(0f)
+                .setDuration(180)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                    }
+                })
+                .start();
     }
 
     /**
      * 启动相机
-     * @param mapLocation
+     *
      */
-    private void startCamera(AMapLocation mapLocation) {
+    private void startCamera() {
         Log.i("startCamera", "begin");
-        if (null != mapLocation) {
-            Log.i("startCamera", mapLocation.getAddress());
-        }
 
+        mFilePath = Environment.getExternalStorageDirectory().getPath();// 获取SD卡路径
+        mFilePath = mFilePath + "/" + "temp.png";// 指定路径
+        Intent intent   = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);// 启动系统相机
+        Uri    photoUri = Uri.fromFile(new File(mFilePath)); // 传递路径
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);// 更改系统默认存储路径
+        AndroidUtil.getActivity(binding.getRoot()).startActivityForResult(intent, Constant.REQUEST_CAMERA);
+
+    }
+    /**
+     * 启动相册选择
+     */
+    private void startAlbum(){
+        Intent albumIntent = new Intent(Intent.ACTION_PICK);
+        albumIntent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        AndroidUtil.getActivity(binding.getRoot()).startActivityForResult(albumIntent, Constant.REQUEST_ALBUM);
     }
 
     /**
@@ -225,7 +319,29 @@ public class MainCtrl implements StartCallBack {
      */
     @Override
     public void onStartCamera(AMapLocation aMapLocation) {
-        startCamera(aMapLocation);
+       // startCamera(aMapLocation);
+    }
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (resultCode == Activity.RESULT_OK){
+            switch (requestCode){
+                case Constant.REQUEST_CAMERA:
+                    ARouter.getInstance().build(RouterURL.IDENTITY).withString(RouterKeys.PHTOT_PATH,mFilePath).navigation();
+                    break;
+                case Constant.REQUEST_ALBUM:
+                    //照片地址
+                    Uri uri = data.getData();
+                    //获取文件路径
+                    mFilePath = FileTools.getRealFilePath(binding.getRoot().getContext(),uri);
+                    ARouter.getInstance().build(RouterURL.IDENTITY)
+                            .withString(RouterKeys.PHTOT_PATH,mFilePath)
+                            .navigation();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
 

@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+
 /**
  * Author: Yangyd
  * E-mail: yangyd@erongdu.com
@@ -26,7 +28,7 @@ public class BaseActivity extends AppCompatActivity {
         }
 
 
-        //   ARouter.getInstance().inject(this);
+           ARouter.getInstance().inject(this);
     }
 
     @Override

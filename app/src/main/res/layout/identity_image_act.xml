@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewCtrl"
+            type="com.zafu.jason.zafuai.module.home.viewCtrl.IdentityImageCtrl" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/photo_show"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y350"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@{viewCtrl.viewModel.imageSrc}" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x40"
+                android:layout_marginTop="@dimen/y40"
+                android:onClick="@{(view) -> viewCtrl.onClickBack(view)}"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_close_white_24dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:onClick="@{(view) -> viewCtrl.onStartCamera(view)}"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_camera" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewCtrl.viewModel.imageLocation}" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="data.json"
+                app:lottie_loop="true" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

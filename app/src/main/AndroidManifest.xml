@@ -2,8 +2,6 @@
 <manifest package="com.zafu.jason.zafuai"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-
     <!--允许程序打开网络套接字-->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--允许程序设置内置sd卡的写权限-->
@@ -16,7 +14,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:name=".MyApplication"
@@ -26,15 +24,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="44f80bdaa681dc670b6632c8dd8c4dea"></meta-data>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="44f80bdaa681dc670b6632c8dd8c4dea"></meta-data>
         <service android:name="com.amap.api.location.APSService"></service>
+
         <activity android:name=".MainAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.home.ui.act.IdentityImageAct"/>
+        <activity android:name=".module.home.ui.act.IdentityImageAct" />
     </application>
 
 </manifest>

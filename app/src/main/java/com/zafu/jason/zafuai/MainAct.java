@@ -11,14 +11,13 @@ import com.zafu.jason.zafuai.uibase.BaseActivity;
 
 @Route(path = RouterURL.MAIN)
 public class MainAct extends BaseActivity {
-
     private MainCtrl viewCtrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
-        viewCtrl = new MainCtrl(binding,MainAct.this.getSupportFragmentManager());
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        viewCtrl = new MainCtrl(binding, MainAct.this.getSupportFragmentManager());
         binding.setViewCtrl(viewCtrl);
     }
 
@@ -26,6 +25,6 @@ public class MainAct extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        viewCtrl.onActivityResult(requestCode,resultCode,data);
+        viewCtrl.onActivityResult(requestCode, resultCode, data);
     }
 }

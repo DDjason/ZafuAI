@@ -9,57 +9,110 @@
             type="com.zafu.jason.zafuai.module.home.viewCtrl.IdentityImageCtrl" />
     </data>
 
-    <LinearLayout
+    <ScrollView
+        android:clipChildren="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/image_Relative"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y1080">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/photo_show"
+            <RelativeLayout
+                android:id="@+id/image_Relative"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@{viewCtrl.viewModel.imageSrc}" />
+                android:layout_height="@dimen/y1080">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view"
+                <ImageView
+                    android:id="@+id/photo_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@{viewCtrl.viewModel.imageSrc}" />
 
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation_view"
 
-            <ImageView
-                android:layout_width="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x40"
+                    android:layout_marginTop="@dimen/y40"
+                    android:onClick="@{(view) -> viewCtrl.onClickBack(view)}"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_close_white_24dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:onClick="@{(view) -> viewCtrl.onStartCamera(view)}"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_camera" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x40"
-                android:layout_marginTop="@dimen/y40"
-                android:onClick="@{(view) -> viewCtrl.onClickBack(view)}"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_close_white_24dp" />
+                android:drawableLeft="@{viewCtrl.viewModel.enableLocation ? @drawable/icon_location_green:@drawable/icon_location_gray}"
+                android:text="@{viewCtrl.viewModel.imageLocation}" />
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/viewpagerFather"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:onClick="@{(view) -> viewCtrl.onStartCamera(view)}"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_camera" />
+                android:clipChildren="false"
+                android:layerType="software"
+                android:orientation="vertical">
 
-        </RelativeLayout>
+                <TextView
+                    android:text="植物名字:"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpagerUse"
+                    android:clipChildren="false"
+                    android:layout_gravity="center"
+                    app:onPageChangeListener="@{viewCtrl.viewModel.pageChangeListener}"
+                    app:adapter="@{viewCtrl.viewModel.pagerAdapter}"
+                    app:offscreenPageLimit="@{3}"
+                    android:layout_width="@dimen/y400"
+                    android:layout_height="@dimen/y400">
+                </android.support.v4.view.ViewPager>
 
-        <TextView
-            android:drawableLeft="@{viewCtrl.viewModel.enableLocation ? @drawable/icon_location_green:@drawable/icon_location_gray}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{viewCtrl.viewModel.imageLocation}" />
 
-    </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="@{(view) -> viewCtrl.onStartAlbum(view)}"
+                        android:text="生成美图" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="分享" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </layout>

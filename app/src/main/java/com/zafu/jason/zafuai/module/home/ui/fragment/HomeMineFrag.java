@@ -21,7 +21,7 @@ public class HomeMineFrag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        HomeMineFragBinding binding = DataBindingUtil.inflate(inflater, R.layout.home_mine_frag,container,false);
+        HomeMineFragBinding binding = DataBindingUtil.inflate(inflater, R.layout.home_mine_frag, container, false);
         return binding.getRoot();
     }
 }

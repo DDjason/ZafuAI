@@ -7,11 +7,9 @@ package com.zafu.jason.zafuai.router;
  * <p/>
  */
 public class RouterURL {
-    private static final String SCHEME = "/zafuai";
+    private static final String SCHEME   = "/zafuai";
     /** 主页 */
-    public static final  String MAIN   = SCHEME + "/main";
-
+    public static final  String MAIN     = SCHEME + "/main";
     /** 图片分析页面 */
-    public static final  String IDENTITY   = SCHEME + "/identity";
-
+    public static final  String IDENTITY = SCHEME + "/identity";
 }

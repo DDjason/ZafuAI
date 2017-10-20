@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewCtrl"
-            type="com.zafu.jason.zafuai.module.home.viewCtrl.HomeMapFragCtrl"/>
+            type="com.zafu.jason.zafuai.module.home.viewCtrl.HomeMapFragCtrl" />
     </data>
 
     <LinearLayout
@@ -17,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="map"/>
+            android:text="map" />
+
         <com.amap.api.maps2d.MapView
             android:id="@+id/map"
             android:layout_width="match_parent"

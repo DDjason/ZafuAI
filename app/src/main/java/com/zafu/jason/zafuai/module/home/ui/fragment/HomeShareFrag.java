@@ -21,7 +21,7 @@ public class HomeShareFrag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        HomeShareFragBinding binding = DataBindingUtil.inflate(inflater, R.layout.home_share_frag,container,false);
+        HomeShareFragBinding binding = DataBindingUtil.inflate(inflater, R.layout.home_share_frag, container, false);
         return binding.getRoot();
     }
 }

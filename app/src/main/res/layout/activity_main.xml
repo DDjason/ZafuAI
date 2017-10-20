@@ -29,12 +29,12 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/y110">
 
-
             <com.ashokvarma.bottomnavigation.BottomNavigationBar
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y110"
-                android:layout_gravity="bottom" >
+                android:layout_gravity="bottom">
+
                 <ImageView
                     android:id="@+id/btn_pub"
                     android:layout_gravity="center"

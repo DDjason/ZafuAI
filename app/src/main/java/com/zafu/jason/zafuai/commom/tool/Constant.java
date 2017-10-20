@@ -9,5 +9,4 @@ package com.zafu.jason.zafuai.commom.tool;
 public class Constant {
     public static final int REQUEST_CAMERA = 1001;
     public static final int REQUEST_ALBUM  = 1002;
-
 }

@@ -51,8 +51,6 @@ public class HomeMapFrag extends Fragment {
             binding.map.onCreate(savedInstanceState);
 
             binding.setViewCtrl(new HomeMapFragCtrl(binding));
-
-
         } else {
             if (binding.getRoot().getParent() != null) {
                 ((ViewGroup) binding.getRoot().getParent()).removeView(binding.getRoot());

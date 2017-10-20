@@ -17,6 +17,7 @@ public class MyApplication extends Application {
         super.onCreate();
         basicInit();
     }
+
     /**
      * 初始化 Application 运行所需的配置信息
      */

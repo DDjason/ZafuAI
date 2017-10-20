@@ -13,7 +13,7 @@ import android.view.ViewGroup;
  * Date: 2017/10/18$ 11:42$
  * <p/>
  */
-public class HomePhotoFrag extends Fragment{
+public class HomePhotoFrag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

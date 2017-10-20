@@ -19,13 +19,14 @@ public class HomeMapFragCtrl {
     /**
      * 用户位置
      */
-    private MyLocationStyle myLocationStyle;
+    private MyLocationStyle    myLocationStyle;
+
     public HomeMapFragCtrl(HomeMapFragBinding binding) {
         this.binding = binding;
         initMap();
     }
 
-    private void initMap(){
+    private void initMap() {
         //显示地图
         if (null == aMap) {
             aMap = binding.map.getMap();
@@ -37,5 +38,4 @@ public class HomeMapFragCtrl {
         //初始化开启定位蓝点
         aMap.setMyLocationEnabled(true);
     }
-
 }

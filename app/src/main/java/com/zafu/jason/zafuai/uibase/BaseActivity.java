@@ -27,8 +27,7 @@ public class BaseActivity extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
-
-           ARouter.getInstance().inject(this);
+        ARouter.getInstance().inject(this);
     }
 
     @Override

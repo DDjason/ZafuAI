@@ -22,7 +22,7 @@ public class HomeNewsFrag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        HomeNewsFragBinding binding = DataBindingUtil.inflate(inflater, R.layout.home_news_frag,container,false);
+        HomeNewsFragBinding binding = DataBindingUtil.inflate(inflater, R.layout.home_news_frag, container, false);
         binding.setViewCtrl(new HomeNewsFragCtrl(binding));
         return binding.getRoot();
     }

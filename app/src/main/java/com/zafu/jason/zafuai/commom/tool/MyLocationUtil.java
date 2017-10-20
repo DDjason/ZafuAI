@@ -27,18 +27,17 @@ public class MyLocationUtil {
         return MyLocationUtilHolder.instance;
     }
 
-
-    public static void initLocation(final StartCallBack callBack){
+    public static void initLocation(final StartCallBack callBack) {
         //声明AMapLocationClient类对象
-         AMapLocationClient mLocationClient = null;
+        AMapLocationClient mLocationClient = null;
         //声明定位回调监听器
-         AMapLocationListener mLocationListener = new AMapLocationListener() {
-             @Override
-             public void onLocationChanged(AMapLocation aMapLocation) {
+        AMapLocationListener mLocationListener = new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
 
-                 callBack.onStartCamera(aMapLocation);
-             }
-         };
+                callBack.onStartCamera(aMapLocation);
+            }
+        };
         //初始化定位
         mLocationClient = new AMapLocationClient(ContextHolder.getContext());
         //设置定位回调监听
@@ -60,9 +59,7 @@ public class MyLocationUtil {
         //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
         mLocationOption.setOnceLocationLatest(true);
 
-
         mLocationClient.setLocationOption(mLocationOption);
         mLocationClient.startLocation();
-
     }
 }

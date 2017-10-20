@@ -7,7 +7,7 @@ package com.zafu.jason.zafuai.module.home.viewCtrl;
  * <p/>
  */
 public class HomePhotoFragCtrl {
-    public HomePhotoFragCtrl(){
+    public HomePhotoFragCtrl() {
 
     }
 }

@@ -7,5 +7,4 @@ package com.zafu.jason.zafuai.module.home.viewmodel;
  * <p/>
  */
 public class HomeNewsFragModel {
-
 }

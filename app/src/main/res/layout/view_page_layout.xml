@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.zafu.jason.zafuai.module.home.viewmodel.RecycleViewItemVM" />
+    </data>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="@dimen/y400"
+        android:layout_height="@dimen/y400">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_width="@dimen/y360"
+            android:layout_height="@dimen/y360">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/about_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y300"
+                android:gravity="center"
+                android:text="点击查看详情"
+                android:textColor="@color/green_800" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

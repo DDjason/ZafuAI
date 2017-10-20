@@ -10,13 +10,10 @@ import com.zafu.jason.zafuai.module.home.viewmodel.HomeNewsFragModel;
  * <p/>
  */
 public class HomeNewsFragCtrl {
-
-
-    private HomeNewsFragModel viewModel;
+    private HomeNewsFragModel   viewModel;
     private HomeNewsFragBinding binding;
 
-
-    public HomeNewsFragCtrl(HomeNewsFragBinding binding){
+    public HomeNewsFragCtrl(HomeNewsFragBinding binding) {
         this.binding = binding;
         initData();
         initBanner();
@@ -26,14 +23,11 @@ public class HomeNewsFragCtrl {
         return viewModel;
     }
 
-    void initBanner(){
+    void initBanner() {
 
     }
 
     private void initData() {
 
     }
-
-
-
 }

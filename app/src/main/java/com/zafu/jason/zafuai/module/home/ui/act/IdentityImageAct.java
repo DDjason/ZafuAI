@@ -30,6 +30,6 @@ public class IdentityImageAct extends BaseActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         IdentityImageActBinding binding = DataBindingUtil.setContentView(this, R.layout.identity_image_act);
 
-        binding.setViewCtrl(new IdentityImageCtrl(photo_path,binding));
+        binding.setViewCtrl(new IdentityImageCtrl(photo_path, binding));
     }
 }

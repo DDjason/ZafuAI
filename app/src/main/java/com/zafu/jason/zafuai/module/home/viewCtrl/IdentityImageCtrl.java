@@ -225,6 +225,7 @@ public class IdentityImageCtrl {
         }
     }
 
+    private int wHeight;
     /**
      * 开始分析结果展示 viewPage部分
      */
@@ -237,7 +238,7 @@ public class IdentityImageCtrl {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 Log.i("onPageScrolled",position + "   "+ positionOffset + "  " + positionOffsetPixels);
-
+                viewModel.getViewList().get(position).getLayoutParams().height = (int )(wHeight + 300 * positionOffset);
             }
 
             @Override
@@ -267,8 +268,9 @@ public class IdentityImageCtrl {
                     .inflate(inflater, R.layout.view_page_layout, binding.viewpagerFather, false);
             mBinding.setVariable(BR.item, new RecycleViewItemVM());
             viewList.add(mBinding.getRoot());
-        }
 
+        }
+        wHeight = viewList.get(0).getHeight();
 
 
         viewModel.setViewList(viewList);

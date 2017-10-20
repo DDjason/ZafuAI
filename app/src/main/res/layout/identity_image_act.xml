@@ -15,16 +15,26 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/image_Relative"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/y1080">
 
             <ImageView
                 android:id="@+id/photo_show"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y350"
+                android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@{viewCtrl.viewModel.imageSrc}" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -46,26 +56,10 @@
         </RelativeLayout>
 
         <TextView
+            android:drawableLeft="@{viewCtrl.viewModel.enableLocation ? @drawable/icon_location_green:@drawable/icon_location_gray}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{viewCtrl.viewModel.imageLocation}" />
-
-        <LinearLayout
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="data.json"
-                app:lottie_loop="true" />
-
-        </LinearLayout>
 
     </LinearLayout>
 </layout>

@@ -3,7 +3,6 @@ package com.zafu.jason.zafuai.module.home.ui.act;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.WindowManager;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -31,6 +30,6 @@ public class IdentityImageAct extends BaseActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         IdentityImageActBinding binding = DataBindingUtil.setContentView(this, R.layout.identity_image_act);
 
-        binding.setViewCtrl(new IdentityImageCtrl(photo_path));
+        binding.setViewCtrl(new IdentityImageCtrl(photo_path,binding));
     }
 }

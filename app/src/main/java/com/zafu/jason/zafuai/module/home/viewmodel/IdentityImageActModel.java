@@ -24,9 +24,44 @@ public class IdentityImageActModel extends BaseObservable{
 
     /**
      * 用户地理信息
-     * @return
+     *
      */
     private AMapLocation aMapLocation;
+
+    /**
+     * Lottie动画是否显示
+     */
+    private boolean enableAnimation;
+
+    /**
+     * 是否获取地址
+     */
+    private boolean enableLocation;
+
+    @Bindable
+    public boolean isEnableLocation() {
+        if (null != imageLocation){
+            enableLocation = true;
+        }else {
+            enableLocation = false;
+        }
+        return enableLocation;
+    }
+
+    public void setEnableLocation(boolean enableLocation) {
+        this.enableLocation = enableLocation;
+        notifyPropertyChanged(BR.enableLocation);
+    }
+
+    @Bindable
+    public boolean isEnableAnimation() {
+        return enableAnimation;
+    }
+
+    public void setEnableAnimation(boolean enableAnimation) {
+        this.enableAnimation = enableAnimation;
+        notifyPropertyChanged(BR.enableAnimation);
+    }
 
     @Bindable
     public String getImageSrc() {
@@ -46,6 +81,7 @@ public class IdentityImageActModel extends BaseObservable{
     public void setImageLocation(String imageLocation) {
         this.imageLocation = imageLocation;
         notifyPropertyChanged(BR.imageLocation);
+        notifyPropertyChanged(BR.enableLocation);
     }
 
     public AMapLocation getaMapLocation() {
